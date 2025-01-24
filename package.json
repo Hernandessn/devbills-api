@@ -1,0 +1,29 @@
+{
+  "name": "devbills-api",
+  "version": "1.0.0",
+  "description": "DevBills API - Controle sua vida financeira pessoal de forma rápida e fácil",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch ./src/server.ts"
+  },
+  "keywords": [],
+  "author": {
+    "name": "Hernandes",
+    "email": "hernandesneves07@gmail.com",
+    "url": "https://github.com/hernandessn"
+  },
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.10",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongoose": "^8.9.5"
+  }
+}
