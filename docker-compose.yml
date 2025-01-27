@@ -6,8 +6,9 @@ services:
     restart: always
     image: mongo
     environment:
-      MONGO_INITDB_USERNAME: 'devbills'
-      MONGO_INITDB_PASSWORD: 'pass123'
+     MONGO_INITDB_USERNAME: 'devbills'
+     MONGO_INITDB_PASSWORD: 'pass123'
+
     ports:
       - '27018:27017'  # Porta externa 27018 vinculada à interna 27017 do MongoDB
     volumes:
