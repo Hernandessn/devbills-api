@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3'
 
 services:
   mongo:
@@ -6,14 +6,13 @@ services:
     restart: always
     image: mongo
     environment:
-     MONGO_INITDB_USERNAME: 'devbills'
-     MONGO_INITDB_PASSWORD: 'pass123'
-
+      MONGO_INITDB_ROOT_USERNAME: 'devbills'
+      MONGO_INITDB_ROOT_PASSWORD: 'pass123'
     ports:
-      - '27018:27017'  # Porta externa 27018 vinculada à interna 27017 do MongoDB
-    volumes:
-      - mongo-data:/data/db  # Volume persistente para os dados do MongoDB
-
+      - '27017:27017'
+    networks:
+      - local
+  
   app:
     depends_on:
       - mongo
@@ -24,10 +23,9 @@ services:
     volumes:
       - ./:/home/app
     ports:
-      - '3333:3333'  # Porta 3333 do seu host para 3333 do container (aplicação)
-
-volumes:
-  mongo-data:  # Volume persistente para os dados do MongoDB
+      - '3333:3333'
+    networks:
+      - local
 
 networks:
   local:
