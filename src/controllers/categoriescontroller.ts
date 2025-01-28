@@ -13,11 +13,6 @@ export class CategoriesController {
     next: NextFunction  // Adicionei o NextFunction aqui, pois falta esse parâmetro
   ) {
     try {
-
-   
-
-      
-
       const { title, color } = req.body;
       const repository = new CategoriesRepository(CategoryModel);
       const service = new CategoriesService(
@@ -27,6 +22,21 @@ export class CategoriesController {
       const result = await service.create({ title, color });
 
       return res.status(StatusCodes.CREATED).json(result);
+    } catch (err) {
+      next(err); // O next é necessário para o tratamento de erro
+    }
+  }
+
+  async index(req: Request,res: Response,next: NextFunction) {
+    try {
+      const repository = new CategoriesRepository(CategoryModel);
+      const service = new CategoriesService(
+        new CategoriesRepository(CategoryModel)
+      );
+
+      const result = await service.index();;
+
+      return res.status(StatusCodes.OK).json(result);
     } catch (err) {
       next(err); // O next é necessário para o tratamento de erro
     }
