@@ -7,19 +7,18 @@ import { z } from "zod";
 import { StatusCodes } from "http-status-codes";
 
 export class CategoriesController {
-  async create(
+  constructor (private categoriesService: CategoriesService){}
+
+   create  = async(
     req: Request<unknown, unknown, CreatedCategoryDTO>,
     res: Response,
     next: NextFunction  // Adicionei o NextFunction aqui, pois falta esse parâmetro
-  ) {
+  ) => {
     try {
       const { title, color } = req.body;
-      const repository = new CategoriesRepository(CategoryModel);
-      const service = new CategoriesService(
-        new CategoriesRepository(CategoryModel)
-      );
+     
 
-      const result = await service.create({ title, color });
+      const result = await this.categoriesService.create({ title, color });
 
       return res.status(StatusCodes.CREATED).json(result);
     } catch (err) {
@@ -27,14 +26,11 @@ export class CategoriesController {
     }
   }
 
-  async index(req: Request,res: Response,next: NextFunction) {
+   index = async (req: Request,res: Response,next: NextFunction) => {
     try {
-      const repository = new CategoriesRepository(CategoryModel);
-      const service = new CategoriesService(
-        new CategoriesRepository(CategoryModel)
-      );
+    
 
-      const result = await service.index();;
+      const result = await this.categoriesService.index();;
 
       return res.status(StatusCodes.OK).json(result);
     } catch (err) {
