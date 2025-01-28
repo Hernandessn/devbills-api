@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { StatusCodes } from "http-status-codes";
 import { TransactionService } from "../service/transaction-service";
-import { CreateTransactionDTO } from "../dtos/transactions.dto";
+import { CreateTransactionDTO, IndexTransactionDTO } from "../dtos/transactions.dto";
 
 export class TransactionController {
     constructor(private transactionService: TransactionService) { }
@@ -20,10 +20,29 @@ export class TransactionController {
                 amount,
                 categoryId,
                 date,
-                type
+                type,
             });
 
             return res.status(StatusCodes.CREATED).json(result);
+        } catch (err) {
+            next(err); // O next é necessário para o tratamento de erro
+        }
+    };
+    index = async (
+        req: Request<unknown, unknown, IndexTransactionDTO>,
+        res: Response,
+        next: NextFunction  // Adicionei o NextFunction aqui, pois falta esse parâmetro
+    ) => {
+        try {
+        
+            const { title,categoryId, beginDate, endDate} = req.query;
+            const result = await this.transactionService.index({
+                title,
+                categoryId, 
+                beginDate, 
+                endDate
+            });
+            return res.status(StatusCodes.OK).json(result);
         } catch (err) {
             next(err); // O next é necessário para o tratamento de erro
         }

@@ -22,3 +22,6 @@ transactionRoutes.post('/',
 }),
  controller.create
 );
+
+
+transactionRoutes.get('/', controller.index);

@@ -13,10 +13,13 @@ const controller = new CategoriesController(
 
 categoriesRoutes.get('/', controller.index)
 
-categoriesRoutes.post('/', 
+categoriesRoutes.post('/',
     validator({
-    schema: createCategorySchema,
-    type: ParamsType.BODY
-}),
- controller.create
+        schema: createCategorySchema,
+        type: ParamsType.BODY
+    }),
+    controller.create
 );
+
+
+
