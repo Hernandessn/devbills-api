@@ -6,7 +6,7 @@ export const createTransactionsSchema = {
     amount: z.number().int().positive(),
     type: z.nativeEnum(TransactionType),
     date: z.coerce.date(),
-    categoryId: z.string(),
+    categoryId: z.string().length(24),
 };
 
 const createTrasactionObject = z.object(createTransactionsSchema);

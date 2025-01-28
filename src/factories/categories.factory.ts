@@ -12,5 +12,10 @@ export class CategoriesFactory {
         }
 
         const repository = new CategoriesRepository(CategoryModel)
+        const service = new CategoriesService(repository)
+
+        this.categoriesService = service;
+         
+        return service;
     }
 }

@@ -1,9 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import { CategoriesService } from "../service/categoriesservice";
-import { CategoriesRepository } from "../database/repositories/categories.repository";
-import { CategoryModel } from "../database/schemas/category.schema";
+
 import { CreatedCategoryDTO } from "../dtos/categories.dto";
-import { z } from "zod";
+
 import { StatusCodes } from "http-status-codes";
 
 export class CategoriesController {
