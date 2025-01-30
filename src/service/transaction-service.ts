@@ -31,6 +31,7 @@ export class TransactionService {
             date,
             category,
             amount,
+            
         });
 
         const createdTransaction = 
