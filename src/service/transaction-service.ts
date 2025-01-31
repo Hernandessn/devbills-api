@@ -6,6 +6,7 @@ import { StatusCodes } from "http-status-codes";
 import { CreateTransactionDTO, GetDashboardDTO, IndexTransactionsDTO } from "../dtos/transactions.dto";
 import { TransactionsRepository } from "../database/repositories/transaction.repository";
 import { Balance } from "../entities/balance.entity";
+import { Expense } from "../entities/expense.entity";
 
 export class TransactionService {
     constructor(
@@ -55,8 +56,22 @@ export class TransactionService {
         return transactions;
     }
 
-    async getDashboard({beginDate, endDate}: GetDashboardDTO){
-     let balance = await this.transactionsRepository.getBalance({beginDate, endDate});
+    async getDashboard({
+        beginDate, 
+        endDate
+    }: GetDashboardDTO): Promise<{balance: Balance, expenses: Expense[]}>{
+        let [balance, expenses] = await Promise.all([
+            this.transactionsRepository.getBalance({
+                beginDate,
+                endDate
+        }),
+        this.transactionsRepository.getExpense({
+            beginDate,
+            endDate,
+        }),
+    ]);
+
+
 
     if(!balance){
         balance = new Balance({
@@ -66,6 +81,6 @@ export class TransactionService {
             balance: 0,
         });
       }
-       return balance
+       return {balance, expenses};
     }
 }
