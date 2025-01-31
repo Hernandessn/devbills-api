@@ -1,13 +1,15 @@
-import { TransactionRepository } from "../database/repositories/transaction.repository";
+
 import { Transaction } from "../entities/transaction.entity";
 import { CategoriesRepository } from "../database/repositories/categories.repository";
 import { AppError } from "../errors/app.error";
 import { StatusCodes } from "http-status-codes";
-import { CreateTransactionDTO, IndexTransactionDTO } from "../dtos/transactions.dto";
+import { CreateTransactionDTO, GetDashboardDTO, IndexTransactionsDTO } from "../dtos/transactions.dto";
+import { TransactionsRepository } from "../database/repositories/transaction.repository";
+import { Balance } from "../entities/balance.entity";
 
 export class TransactionService {
     constructor(
-        private transactionsRepository: TransactionRepository,
+        private transactionsRepository: TransactionsRepository,
         private categoriesRepository: CategoriesRepository,
     ) {}
 
@@ -41,9 +43,29 @@ export class TransactionService {
     }
 
     // Implementação do método index
-    async index(filters: IndexTransactionDTO): Promise<Transaction[]> {
+    async index({  title,
+        beginDate,
+        categoryId,
+        endDate}: IndexTransactionsDTO): Promise<Transaction[]> {
         // Use o repositório para buscar todas as transações
-        const transactions = await this.transactionsRepository.index(filters);
+        const transactions = await this.transactionsRepository.index({  title,
+            beginDate,
+            categoryId,
+            endDate});
         return transactions;
+    }
+
+    async getDashboard({beginDate, endDate}: GetDashboardDTO){
+     let balance = await this.transactionsRepository.getBalance({beginDate, endDate});
+
+    if(!balance){
+        balance = new Balance({
+            _id: null,
+            incomes: 0,
+            expenses: 0,
+            balance: 0,
+        });
+      }
+       return balance
     }
 }
