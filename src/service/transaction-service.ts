@@ -3,7 +3,7 @@ import { Transaction } from "../entities/transaction.entity";
 import { CategoriesRepository } from "../database/repositories/categories.repository";
 import { AppError } from "../errors/app.error";
 import { StatusCodes } from "http-status-codes";
-import { CreateTransactionDTO, GetDashboardDTO, IndexTransactionsDTO } from "../dtos/transactions.dto";
+import { CreateTransactionDTO, GetDashboardDTO, GetFinancialEvolutionDTO, IndexTransactionsDTO } from "../dtos/transactions.dto";
 import { TransactionsRepository } from "../database/repositories/transaction.repository";
 import { Balance } from "../entities/balance.entity";
 import { Expense } from "../entities/expense.entity";
@@ -83,4 +83,12 @@ export class TransactionService {
       }
        return {balance, expenses};
     }
+
+    async getFinanncialEvolution({
+        year,
+    }: GetFinancialEvolutionDTO): Promise <Balance[]>{
+        const finnancialEvolution =  await this.transactionsRepository.getFinancialEvolution({ year });
+
+        return finnancialEvolution;
+    };
 }

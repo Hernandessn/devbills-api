@@ -2,7 +2,7 @@ import { Router } from "express";
 
 
 
-import { createTransactionSchema, getDashboardSchema, indexTransactionsSchema } from "../dtos/transactions.dto";
+import { createTransactionSchema, getDashboardSchema, getFinancialEvolutionSchema, indexTransactionsSchema } from "../dtos/transactions.dto";
 import { ParamsType, validator } from "../middleware/validator.middleware";
 
 import { TransactionFactory } from "../factories/transaction.factory";
@@ -35,4 +35,11 @@ transactionRoutes.get('/dashboard',validator({
   type: ParamsType.QUERY,
 
 }),controller.getDashboard
+);
+
+transactionRoutes.get('/financial-evolution',validator({
+  schema: getFinancialEvolutionSchema,
+  type: ParamsType.QUERY,
+
+}),controller.getFinancialEvolution,
 );
