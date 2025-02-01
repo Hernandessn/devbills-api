@@ -11,13 +11,13 @@
   },
   "keywords": [],
   "author": {
-    "name": "Agustinho Neto",
+    "name": "Hernandes",
     "email": "hello@apneto.dev",
-    "url": "https://github.com/agustinhopneto"
+    "url": "https://github.com/hernandessn"
   },
   "license": "ISC",
   "devDependencies": {
-    "@types/cors": "^2.8.15",
+    "@types/cors": "^2.8.17",
     "@types/express": "^4.17.20",
     "@types/node": "^20.8.8",
     "@typescript-eslint/eslint-plugin": "^6.9.0",

@@ -57,7 +57,7 @@ export class TransactionsController {
   };
 
   getDashboard = async (
-    req: Request<unknown, unknown, unknown, GetDashboardDTO>,
+    req: QueryRequest< GetDashboardDTO>,
     res: Response,
     next: NextFunction,
   ) => {
@@ -76,7 +76,7 @@ export class TransactionsController {
   };
 
   getFinancialEvolution = async (
-    req: Request<unknown, unknown, unknown, GetFinancialEvolutionDTO>,
+    req: QueryRequest< GetFinancialEvolutionDTO>,
     res: Response,
     next: NextFunction,
   ) => {
